@@ -7,6 +7,10 @@ phases:
     commands:
       - echo Installing dependencies
       - pip install -r requirements.txt
+      - echo Installing Docker...
+      - apt-get update
+      - apt-get install -y docker.io
+
   build:
     commands:
       - echo Building the Docker image
