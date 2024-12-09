@@ -20,5 +20,6 @@ phases:
       - docker push 034362045846.dkr.ecr.us-east-1.amazonaws.com/rupanshi-flask-app:latest
 
 artifacts:
-  files: '**/*'
-  base-directory: 'build'
+  files:
+    - '**/*'
+  base-directory: 'build_output'
