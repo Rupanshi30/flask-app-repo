@@ -11,13 +11,29 @@ phases:
       - apt-get update
       - apt-get install -y docker.io
 
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+
   build:
     commands:
       - echo Building the Docker image
       - docker build -t flask-app .
-      - $(aws ecr get-login --no-include-email --region us-east-1)
       - docker tag flask-app:latest 034362045846.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:latest
       - docker push 034362045846.dkr.ecr.us-east-1.amazonaws.com/rupanshi-flask-app:latest
+
+      # Ensure the build output directory exists
+      - mkdir -p build_output
+
+      # Copy relevant build artifacts to the build_output directory
+      - echo "Flask app Docker image build completed" > build_output/build_status.txt
+      - echo "Docker image tag: latest" >> build_output/build_status.txt
+      - echo "Docker image pushed to ECR" >> build_output/build_status.txt
+
+  post_build:
+    commands:
+      - echo Build completed
 
 artifacts:
   files:
