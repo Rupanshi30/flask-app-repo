@@ -13,7 +13,7 @@ phases:
       - docker build -t flask-app .
       - $(aws ecr get-login --no-include-email --region us-east-1)
       - docker tag flask-app:latest 034362045846.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:latest
-      - docker push 034362045846.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:latest
+      - docker push 034362045846.dkr.ecr.us-east-1.amazonaws.com/rupanshi-flask-app:latest
 
 artifacts:
   files: '**/*'
